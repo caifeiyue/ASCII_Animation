@@ -1,8 +1,9 @@
 from random import randint
 from asciimatics.screen import Screen
 from asciimatics.effects import Cycle, Stars, Print
-from asciimatics.renderers import FigletText, StaticRenderer
+from asciimatics.renderers import FigletText, StaticRenderer, BarChart
 from asciimatics.scene import Scene
+from asciimatics.paths import Path
 
 bike = """
      ,--.      <__)
@@ -43,14 +44,30 @@ def demo2(screen):
 
 
 def bike_show(screen):
+    centre = (screen.width // 2, screen.height // 2)
+    path = Path()
+    path.jump_to(screen.width + 16, centre[1])
+    path.move_straight_to(-16, centre[1], (screen.width + 16) // 3)
+
     effects = [
         Print(screen,
               # FigletText("ASCIIMATICS", font='big'),
               StaticRenderer(images=[bike]),
-              int(screen.height / 2 - 8))
+              int(screen.height / 2 - 8),
+              path=path)
         # Stars(screen, 200)
     ]
     screen.play([Scene(effects, 500)])
 
 
+def test():
+    renderer = BarChart(10, 40, [fn, fn], char='=')
+    print(renderer)
+
+
+def fn():
+    return randint(0, 40)
+
+
 Screen.wrapper(bike_show)
+# test()
