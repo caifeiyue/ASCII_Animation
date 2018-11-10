@@ -10,7 +10,7 @@ from asciimatics.scene import Scene
 from asciimatics.paths import Path
 
 from fireworks import demo as firework
-from ascii_lib.ascii_art import bike_series
+from resources.ascii_art import china_less, train, arrow, CS, GZ
 
 
 def demo1(screen):
@@ -37,11 +37,62 @@ def demo2(screen):
     screen.play([Scene(effects, 500)])
 
 
-def bike(screen):
+def print_ascii(screen, ascii_obj):
+    effects = [
+        Print(screen,
+              # FigletText("ASCIIMATICS", font='big'),
+              StaticRenderer(images=[ascii_obj]),
+              int(screen.height / 2 - 16),
+              start_frame=1)
+    ]
+
+    effects.append(Print(screen,
+                         StaticRenderer(images=[CS]),
+                         int(screen.height / 2 + 7),
+                         int(screen.width / 2 + 14),
+                         start_frame=30))
+    """effects.append(Print(screen,
+                         StaticRenderer(images=[arrow]),
+                         int(screen.height / 2 + 7),
+                         int(screen.width / 2 + 13),
+                         start_frame=40))
+    """
+    effects.append(Print(screen,
+                         StaticRenderer(images=["/"]),
+                         int(screen.height / 2 + 8),
+                         int(screen.width / 2 + 14),
+                         start_frame=35))
+    effects.append(Print(screen,
+                         StaticRenderer(images=["\\"]),
+                         int(screen.height / 2 + 9),
+                         int(screen.width / 2 + 14),
+                         start_frame=40))
+    effects.append(Print(screen,
+                         StaticRenderer(images=["/"]),
+                         int(screen.height / 2 + 10),
+                         int(screen.width / 2 + 14),
+                         start_frame=45))
+    effects.append(Print(screen,
+                         StaticRenderer(images=["\\"]),
+                         int(screen.height / 2 + 11),
+                         int(screen.width / 2 + 14),
+                         start_frame=50))
+    effects.append(Print(screen,
+                         StaticRenderer(images=[GZ]),
+                         int(screen.height / 2 + 12),
+                         int(screen.width / 2 + 14),
+                         start_frame=55))
+    return effects
+    # screen.play([Scene(effects, 0)])
+
+
+def move_animation(screen, ascii_obj):
     centre = (screen.width // 2, screen.height // 2)
     path = Path()
-    path.jump_to(screen.width + 16, centre[1])
-    path.move_straight_to(-16, centre[1], (screen.width + 16) // 1)
+    # path.jump_to(screen.width + 16, centre[1])
+    obj_length = 64
+    path.jump_to(-obj_length, centre[1])
+    path.move_straight_to(screen.width+obj_length, centre[1], (screen.width + obj_length) // 5)
     """effects = [
         Print(screen,
               # FigletText("ASCIIMATICS", font='big'),
@@ -52,16 +103,24 @@ def bike(screen):
     sprite = Sprite(
             screen,
             renderer_dict={
-                        "default": StaticRenderer(images=[bike_series])
+                        "default": StaticRenderer(images=[ascii_obj])
                     },
             path=path)
     effects = [sprite]
-    screen.play([Scene(effects, 0)])
+    return effects
+    # screen.play([Scene(effects, 0)])
 
 
-
+def my_future_come(screen):
+    sences = []
+    china_geo = print_ascii(screen, china_less)
+    train_move = move_animation(screen, train)
+    sences.append(Scene(china_geo, 80))
+    sences.append(Scene(train_move, -1))
+    # effects.append(train_move)
+    screen.play(sences, stop_on_resize=True)
 
 
 # wrapper: call the function
 # Screen: the args of wrapper func
-Screen.wrapper(firework)
+Screen.wrapper(my_future_come)
