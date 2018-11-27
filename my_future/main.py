@@ -11,32 +11,7 @@ from asciimatics.scene import Scene
 from asciimatics.paths import Path
 from asciimatics.exceptions import ResizeScreenError
 
-from fireworks import demo as firework
-from resources.ascii_art import china
-
-
-def demo1(screen):
-    while True:
-        screen.print_at('Hello world!', randint(0, screen.width),
-                        randint(0, screen.height), colour=randint(0, screen.colours - 1),
-                        bg=randint(0, screen.colours - 1))
-        ev = screen.get_key()
-        if ev in (ord('Q'), ord('q')):
-            return
-        screen.refresh()
-
-
-def demo2(screen):
-    effects = [
-        Cycle(screen,
-              FigletText("ASCIIMATICS", font='big'),
-              int(screen.height / 2 - 8)),
-        Cycle(screen,
-              FigletText("ROCKS!", font='big'),
-              int(screen.height / 2 + 3)),
-        Stars(screen, 200)
-    ]
-    screen.play([Scene(effects, 500)])
+from resources.ascii_art import china, train, arrow, CS, GZ
 
 
 def print_ascii(screen, ascii_obj):
@@ -53,12 +28,6 @@ def print_ascii(screen, ascii_obj):
                          int(screen.height / 2 + 7),
                          int(screen.width / 2 + 14),
                          start_frame=30))
-    """effects.append(Print(screen,
-                         StaticRenderer(images=[arrow]),
-                         int(screen.height / 2 + 7),
-                         int(screen.width / 2 + 13),
-                         start_frame=40))
-    """
     effects.append(Print(screen,
                          StaticRenderer(images=["/"]),
                          int(screen.height / 2 + 8),
@@ -95,13 +64,6 @@ def move_animation(screen, ascii_obj):
     obj_length = 64
     path.jump_to(-obj_length, centre[1])
     path.move_straight_to(screen.width+obj_length, centre[1], (screen.width + obj_length) // 5)
-    """effects = [
-        Print(screen,
-              # FigletText("ASCIIMATICS", font='big'),
-              StaticRenderer(images=[bike_ascii]),
-              int(screen.height / 2 - 8))
-        # Stars(screen, 200)
-    ]"""
     sprite = Sprite(
             screen,
             renderer_dict={
@@ -119,6 +81,7 @@ def my_future_come(screen):
     train_move = move_animation(screen, train)
     sences.append(Scene(china_geo, 80))
     sences.append(Scene(train_move, 90))
+    # effects.append(train_move)
     screen.play(sences, stop_on_resize=True, repeat=False)
 
 
@@ -126,8 +89,7 @@ def my_future_come(screen):
 # Screen: the args of wrapper func
 while True:
     try:
-        # Screen.wrapper(my_future_come)
-        Screen.wrapper(firework)
+        Screen.wrapper(my_future_come)
         sys.exit(0)
     except ResizeScreenError:
         pass

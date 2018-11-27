@@ -8,6 +8,3 @@ This program refer to the program: [SL(1): Cure your bad habit of mistyping](htt
 Just for interest to do this. Actually small changes are made in the program
 before.
 
-#### BIRTH_WQ
-This program aim to record days that memorable.
-

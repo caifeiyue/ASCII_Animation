@@ -9,7 +9,7 @@
 
 
 #### TODO
-- [ ] How to move object
+- [x] How to move object
 - [ ] Coloring effect
 - [ ] Search ASCII elements of Xi'an
-- [ ] Search record software
+- [x] Search record software
