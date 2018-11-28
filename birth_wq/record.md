@@ -7,9 +7,9 @@
 
 
 
-
 #### TODO
 - [x] How to move object
+- [x] Search record software
 - [ ] Coloring effect
 - [ ] Search ASCII elements of Xi'an
-- [x] Search record software
+- [ ] move with certain curve

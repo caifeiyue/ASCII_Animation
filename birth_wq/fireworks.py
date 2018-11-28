@@ -42,6 +42,7 @@ def demo(screen):
     effects.append(Print(screen,
                          StaticRenderer(images=[hug_two]),
                          screen.height - 18,
+                         speed=2,
                          start_frame=50))
 
     effects.append(Print(screen,
