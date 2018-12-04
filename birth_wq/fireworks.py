@@ -1,14 +1,51 @@
-from asciimatics.effects import Stars, Print
+from asciimatics.effects import Stars, Print, Sprite
 from asciimatics.particles import RingFirework, SerpentFirework, StarFirework, \
     PalmFirework
 from asciimatics.renderers import SpeechBubble, FigletText, Rainbow, StaticRenderer
 from asciimatics.scene import Scene
+from asciimatics.paths import Path
 from asciimatics.screen import Screen
 from asciimatics.exceptions import ResizeScreenError
 from random import randint, choice
 import sys
 
 from resources.ascii_art import love, hug_two
+
+def move_animation(screen, ascii_obj):
+    centre = (screen.width // 2, screen.height // 2 - 3)
+    path = Path()
+    # path.jump_to(screen.width + 16, centre[1])
+    obj_len = 2
+    half_length = 10
+    for i in range(half_length):
+        path.jump_to(centre[0]-i*2, centre[1]-i)
+        path.jump_to(centre[0]+i*2, centre[1]-i)
+    for i in range(half_length):
+        path.jump_to(centre[0]-(half_length-1)*2-1-i*2, centre[1]-(half_length-1)+i)
+        path.jump_to(centre[0]+(half_length-1)*2+1+i*2, centre[1]-(half_length-1)+i)
+    for i in range(1, 2*half_length-1):
+        path.jump_to(centre[0]-(half_length-1)*2*2+i*2, centre[1]+i)
+        path.jump_to(centre[0]+(half_length-1)*2*2-i*2, centre[1]+i)
+
+    # path.move_straight_to(screen.width+obj_length, centre[1], (screen.width + obj_length) // 2)
+    """effects = [
+        Print(screen,
+              # FigletText("ASCIIMATICS", font='big'),
+              StaticRenderer(images=[bike_ascii]),
+              int(screen.height / 2 - 8))
+        # Stars(screen, 200)
+    ]"""
+    sprite = Sprite(
+            screen,
+            renderer_dict={
+                        "default": StaticRenderer(images=[ascii_obj])
+                    },
+            path=path,
+            colour=255,
+            clear=False)
+    effects = [sprite]
+    # return effects
+    return sprite
 
 
 def demo(screen):
@@ -55,7 +92,11 @@ def demo(screen):
                          screen.height // 2 + 1,
                          speed=1,
                          start_frame=100))
+    love_move = move_animation(screen, love)
+    effects.append(love_move)
     scenes.append(Scene(effects, -1))
-
+    # scenes.append(Scene(love_move, -1))
     screen.play(scenes, stop_on_resize=True)
+
+
 

@@ -12,4 +12,4 @@
 - [x] Search record software
 - [ ] Coloring effect
 - [ ] Search ASCII elements of Xi'an
-- [ ] move with certain curve
+- [x] move with certain curve

@@ -1,25 +1,14 @@
-love = """
-         WQWQWQQQ:       QQQQQQQQ!
+name = """
+WQ
+"""
 
-    QQQ            WQ    QQ         !Q
+love = """❤
+"""
 
- QQQ               WQ  Q            !Q
-
-  QQQ                 WQ              !Q
-
-   QQ                              !Q
-    QQQ                             !Q
-
-      QQ                            !Q
-
-       QQ                          !Q
-         Q!                      !Q
-           !                   !Q
-              !!;            !Q
-                ;;         !Q
-                   ::    !Q
-                     ::!Q
-                      :
+bike_two = """
+ o  __o
+ |< \<_
+ (_)/(_)
 """
 
 
